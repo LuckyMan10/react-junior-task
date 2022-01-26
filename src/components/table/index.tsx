@@ -19,6 +19,7 @@ const Table: FC<table> = ({ name, productsId }) => {
   useEffect(() => {
     const currProducts = productsId.map((id) => products[id]);
     setCurrentProducts(currProducts);
+    console.log('table')
   }, [])
 
   const onRow = (record: any) => ({

@@ -1,7 +1,6 @@
 import { FC, MouseEvent } from "react";
 import { StyledNav } from "./style";
 import { useAppSelector, useAppDispatch } from "redux/store/hooks";
-import { setCategory } from "redux/reducer/action";
 import { Link } from "react-router-dom";
 
 const NavBar: FC = () => {

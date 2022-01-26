@@ -6,6 +6,7 @@ const StyledTable = Styled.div`
     align-items: center;
     flex-direction: column;
     text-align: center;
+    margin-bottom: 70px;
     .title {
         max-width: 1100px;
         margin: 15px;

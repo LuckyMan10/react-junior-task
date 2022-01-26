@@ -15,11 +15,4 @@ const setQuantityProduct = ({ productId, quantity }: setQuantityAction) => {
   };
 };
 
-const setCategory = (categoryId: string) => {
-  return {
-    type: tableActionEnum.SET_CATEGORY,
-    payload: categoryId
-  }
-}
-
-export { setQuantityProduct, setCategory };
+export { setQuantityProduct };

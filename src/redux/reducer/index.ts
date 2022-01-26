@@ -4,7 +4,7 @@ import {
   receivedCategory,
   tableAction,
   receivedProduct,
-  filtredProduct
+  filtredProduct,
 } from "./types";
 
 const initialState: InitialState = {
@@ -26,7 +26,7 @@ const tableReducer = (state = initialState, action: tableAction) => {
         draftState.isFetched = true;
         draftState.isError = false;
 
-        const allProducts: {[key: string]: filtredProduct} = {};
+        const allProducts: { [key: string]: filtredProduct } = {};
         const categoriesId: string[] = [];
 
         action.payload.forEach((category: receivedCategory, index: number) => {
@@ -51,91 +51,42 @@ const tableReducer = (state = initialState, action: tableAction) => {
           const currentCategory = {
             id: category.rid,
             name: category.rname,
-            productsId 
-          }
-          if(index === 0) {
+            productsId,
+          };
+          if (index === 0) {
             draftState.currentCategory = {
               name: category.rname,
-              id: category.rid
-            }
+              id: category.rid,
+            };
             draftState.currentProducts = products;
           }
 
           draftState.categories[category.rid] = currentCategory;
           draftState.categoriesNav.push({
             name: category.rname,
-            id: category.rid
-          })
+            id: category.rid,
+          });
         });
         draftState.products = allProducts;
         draftState.categoriesId = categoriesId;
-        /*
-        const currentCategoryId = action.payload[0].rid;
-        draftState.isFetched = true;
-        draftState.isError = false;
-        draftState.currentCategory = currentCategoryId;
-        draftState.currentCategoryName = action.payload[0].rname;
-        action.payload.forEach((category: receivedCategory) => {
-          const productsId: string[] = [];
-          draftState.categoriesId.push(category.rid);
-          draftState.categoriesNav.push({
-            name: category.rname,
-            id: category.rid
-          })
-          const products: any = [];
-          category.goods.forEach((product: receivedProduct) => {
-            const currentProduct = {
-              id: product.gid,
-              name: product.gname,
-              price: Number(product.gprice),
-              quantity: 1,
-              summ: Number(product.gprice),
-              categoryId: category.rid,
-            }
-            products.push(currentProduct);
-            productsId.push(product.gid);
-            if(category.rid === currentCategoryId) {
-              draftState.currentProducts.push(currentProduct);
-            }
-          })
-          draftState.productsByCategoryId[category.rid] = products;
-        });
-        */
       });
       return nextState;
     }
     case "SET_PRODUCTS_ERROR":
-      return {
-        ...state,
-        isFetched: false,
-        isError: true,
-      };
+      const nextState = produce(state, (draftState) => {
+        draftState.isFetched = false;
+        draftState.isError = true;
+      });
+      return nextState;
     case "SET_QUANTITY": {
       const nextState = produce(state, (draftState) => {
         const { productId, quantity } = action.payload;
-        const [product] = draftState.currentProducts.filter(
-          (product) => product.id === productId
-        );
-        const price = product.price;
-        product.quantity = quantity;
-        product.summ = price * quantity;
+        draftState.products[productId].quantity = quantity;
+        draftState.products[productId].summ =
+          state.products[productId].price * quantity;
       });
+      console.log(nextState)
       return nextState;
-    }
-    case "SET_CATEGORY": {
-      /*
-      const nextState = produce(state, (draftState) => {
-        const categoryId = action.payload;
-        draftState.currentProducts = state.productsByCategoryId[categoryId];
-        draftState.currentCategory = categoryId;
-        const [category] = state.categoriesNav.filter(
-          (category) => category.id === categoryId
-        );
-        draftState.currentCategoryName = category.name;
-      });
-      return nextState;
-      */
-      return state;
     }
     default:
       return state;
