@@ -1,18 +1,25 @@
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import RcTable from "rc-table";
 import { StyledTable } from "./style";
 import { columns } from "./columns";
 import { filtredProduct } from "redux/reducer/types";
-import { useAppDispatch } from "redux/store/hooks";
+import { useAppDispatch, useAppSelector } from "redux/store/hooks";
 import { setQuantityProduct } from "redux/reducer/action";
 
 type table = {
   name: string;
-  products: filtredProduct[];
+  productsId: string[];
 };
 
-const Table: FC<table> = ({ name, products }) => {
+const Table: FC<table> = ({ name, productsId }) => {
   const dispatch = useAppDispatch();
+  const {products} = useAppSelector((state) => state.table);
+  const [currentProducts, setCurrentProducts] = useState<Array<filtredProduct>>([]);
+
+  useEffect(() => {
+    const currProducts = productsId.map((id) => products[id]);
+    setCurrentProducts(currProducts);
+  }, [])
 
   const onRow = (record: any) => ({
     onChange(e: any) {
@@ -31,7 +38,7 @@ const Table: FC<table> = ({ name, products }) => {
       <RcTable
         rowKey={(obj) => obj.id}
         columns={columns}
-        data={products}
+        data={currentProducts}
         onRow={onRow}
       />
     </StyledTable>

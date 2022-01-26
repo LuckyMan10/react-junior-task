@@ -5,10 +5,10 @@ import { useAppSelector } from "redux/store/hooks";
 import { Table } from "components/table";
 
 const Main: FC = () => {
-  const { currentCategoryName, currentProducts } =
-    useAppSelector((state) => state.table);
+
   return (
     <StyledMain>
+      {/*
       <NavBar />
       <div className="table-wrapper">
       <Table
@@ -17,6 +17,7 @@ const Main: FC = () => {
             products={currentProducts}
           />
       </div>
+      */}
     </StyledMain>
   );
 };

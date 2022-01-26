@@ -104,8 +104,6 @@ export interface filtredProduct {
 export interface filtredCategory {
   id: string;
   name: string;
-  totalPrice: number;
-  totalQuantity: number;
   productsId: string[];
 }
 
@@ -146,9 +144,11 @@ export type InitialState = {
     [key: string]: filtredCategory;
   };
   categoriesId: string[];
-  currentCategory: string;
+  currentCategory: {
+    name?: string;
+    id?: string;
+  };
   currentProducts: filtredProduct[];
-  currentCategoryName: string;
   productsByCategoryId: {
     [key: string]: filtredProduct[];
   };

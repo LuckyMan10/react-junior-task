@@ -1,7 +1,8 @@
 import { FC, MouseEvent } from "react";
 import { StyledNav } from "./style";
 import { useAppSelector, useAppDispatch } from "redux/store/hooks";
-import {setCategory} from "redux/reducer/action";
+import { setCategory } from "redux/reducer/action";
+import { Link } from "react-router-dom";
 
 const NavBar: FC = () => {
   const dispatch = useAppDispatch();
@@ -9,30 +10,20 @@ const NavBar: FC = () => {
     (state) => state.table
   );
 
-  const navClickHandler = (e: MouseEvent<HTMLElement>) => {
-    const id = (e.target as HTMLElement).id;
-    if(id) {
-      dispatch(setCategory(id))
-    }
-  };
-
   const isDataReady = !isError && isFetched;
   return (
     <StyledNav>
-      <ul onClick={navClickHandler} className="list">
+      <ul className="list">
         {isDataReady &&
           categoriesNav.map((category, index) => {
             return (
               <li
                 key={`${category.id}_${index}`}
-                id={category.id}
                 className={`list__item ${
                   category.id === currentCategory ? "item-active" : ""
                 }`}
               >
-                <button id={category.id} className="list__button">
-                  {category.name}
-                </button>
+                <Link to={`/${category.id}`}>{category.name}</Link>
               </li>
             );
           })}
