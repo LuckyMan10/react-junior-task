@@ -1,4 +1,4 @@
-import { setQuantity, tableActionEnum } from "./types";
+import { tableActionEnum } from "./types";
 
 type setQuantityAction = {
   productId: string;
@@ -15,4 +15,11 @@ const setQuantityProduct = ({ productId, quantity }: setQuantityAction) => {
   };
 };
 
-export { setQuantityProduct };
+const setCategory = (categoryId: string) => {
+  return {
+    type: tableActionEnum.SET_CATEGORY,
+    payload: categoryId
+  }
+}
+
+export { setQuantityProduct, setCategory };

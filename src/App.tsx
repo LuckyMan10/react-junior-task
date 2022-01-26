@@ -1,33 +1,21 @@
-import { useState, useEffect, ChangeEvent } from "react";
-import { Table } from "./components/table";
+import { useEffect } from "react";
 import { getProducts } from "redux/saga";
-import { useAppSelector, useAppDispatch } from "redux/store/hooks";
+import { useAppDispatch, useAppSelector } from "redux/store/hooks";
+import { Main } from "pages/main";
+import { Route } from "react-router-dom";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { categories, products, isError, isFetched } = useAppSelector(
+  const { isError, isFetched, currentCategory } = useAppSelector(
     (state) => state.table
   );
-
   useEffect(() => {
     dispatch(getProducts());
   }, []);
-
   const isDataReady = !isError && isFetched;
   return (
     <div className="App">
-      {isDataReady &&
-        Object.keys(categories).map((categoryId, index) => {
-          const category = categories[categoryId];
-          const currentProducts = category.productsId.map((id) => products[id]);
-          return (
-            <Table
-              key={`${category.id}_${index}`}
-              name={category.name}
-              products={currentProducts}
-            />
-          );
-        })}
+      {isDataReady && <Main />}
     </div>
   );
 }

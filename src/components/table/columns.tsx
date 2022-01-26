@@ -24,7 +24,7 @@ const columns = [
     dataIndex: "quantity",
     key: "quantity",
     width: 200,
-    render: (_: any, record: any) => <input type="number" min="0" value={record.quantity} onChange={onQuantityChange}/>,
+    render: (_: any, record: any) => <input type="number" min="0" value={String((record).quantity).replace(/^0+/, '')} onChange={onQuantityChange}/>,
   },
   {
     title: "result price",

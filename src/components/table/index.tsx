@@ -27,7 +27,7 @@ const Table: FC<table> = ({ name, products }) => {
 
   return (
     <StyledTable>
-      <h1>{name}</h1>
+      <h1 className="title">{name}</h1>
       <RcTable
         rowKey={(obj) => obj.id}
         columns={columns}
