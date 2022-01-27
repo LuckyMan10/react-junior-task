@@ -104,13 +104,16 @@ export interface filtredProduct {
 export interface filtredCategory {
   id: string;
   name: string;
-  productsId: string[];
+  products: {
+    [key: string]: filtredProduct;
+  };
 }
 
 export enum tableActionEnum {
   SET_TABLE_PRODUCTS = "SET_PRODUCTS",
   SET_TABLE_ERROR = "SET_PRODUCTS_ERROR",
-  SET_QUANTITY = "SET_QUANTITY"
+  SET_QUANTITY = "SET_QUANTITY",
+  GET_PRODUCTS = "GET_PRODUCTS",
 }
 
 export interface setTableProducts {
@@ -122,10 +125,15 @@ export interface setTableError {
   type: tableActionEnum.SET_TABLE_ERROR;
 }
 
+export interface getProducts {
+  type: tableActionEnum.GET_PRODUCTS;
+}
+
 export interface setQuantity {
   type: tableActionEnum.SET_QUANTITY;
   payload: {
     productId: string;
+    categoryId: string;
     quantity: number;
   };
 }
@@ -154,4 +162,8 @@ export type InitialState = {
   isFetched: boolean;
 };
 
-export type tableAction = setTableProducts | setTableError | setQuantity | any;
+export type tableAction =
+  | setTableProducts
+  | setTableError
+  | setQuantity
+  | getProducts;

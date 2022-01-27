@@ -8,29 +8,36 @@ const columns = [
     width: 200,
   },
   {
-    title: "name",
+    title: "Название",
     dataIndex: "name",
     key: "name",
     width: 200,
   },
   {
-    title: "price",
+    title: "Цена",
     dataIndex: "price",
     key: "price",
     width: 200,
   },
   {
-    title: "quantity",
+    title: "Количество",
     dataIndex: "quantity",
     key: "quantity",
     width: 200,
-    render: (_: any, record: any) => <input type="number" min="0" value={String((record).quantity).replace(/^0+/, '')} onChange={onQuantityChange}/>,
+    render: (_: any, record: any) => (
+      <input
+        type="number"
+        min="0"
+        value={String(record.quantity).replace(/^0+/, "")}
+        onChange={onQuantityChange}
+      />
+    ),
   },
   {
-    title: "result price",
+    title: "Сумма",
     dataIndex: "summ",
     key: "summ",
-    width: 200
+    width: 200,
   },
 ];
 

@@ -2,34 +2,39 @@ import { FC, useState, useEffect } from "react";
 import RcTable from "rc-table";
 import { StyledTable } from "./style";
 import { columns } from "./columns";
-import { filtredProduct } from "redux/reducer/types";
+import { filtredProduct, tableActionEnum } from "redux/reducer/table/types";
 import { useAppDispatch, useAppSelector } from "redux/store/hooks";
-import { setQuantityProduct } from "redux/reducer/action";
+import { setQuantityProduct } from "redux/reducer/table/action";
+import { updateCart } from "redux/reducer/cart/action";
 
 type table = {
   name: string;
-  productsId: string[];
+  products: filtredProduct[];
+  categoryId: string;
 };
 
-const Table: FC<table> = ({ name, productsId }) => {
+const Table: FC<table> = ({ name, products, categoryId }) => {
   const dispatch = useAppDispatch();
-  const {products} = useAppSelector((state) => state.table);
-  const [currentProducts, setCurrentProducts] = useState<Array<filtredProduct>>([]);
-
-  useEffect(() => {
-    const currProducts = productsId.map((id) => products[id]);
-    setCurrentProducts(currProducts);
-    console.log('table')
-  }, [])
 
   const onRow = (record: any) => ({
     onChange(e: any) {
       const quantity = Number(e.target.value);
       const productId = record.id;
-      dispatch(setQuantityProduct({
+      const productPrice = record.price;
+      dispatch(
+        updateCart({
+          id: productId,
+          price: productPrice,
           quantity,
-          productId
-      }))
+        })
+      );
+      dispatch(
+        setQuantityProduct({
+          quantity,
+          productId,
+          categoryId,
+        })
+      );
     },
   });
 
@@ -39,7 +44,7 @@ const Table: FC<table> = ({ name, productsId }) => {
       <RcTable
         rowKey={(obj) => obj.id}
         columns={columns}
-        data={currentProducts}
+        data={products}
         onRow={onRow}
       />
     </StyledTable>

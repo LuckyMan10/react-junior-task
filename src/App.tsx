@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getProducts } from "redux/saga";
+import { getProducts } from "redux/reducer/table/action";
 import { useAppDispatch } from "redux/store/hooks";
 import { NavBar } from "components/navbar";
 import Styled from "styled-components";
@@ -22,7 +22,7 @@ function App() {
     <StyledApp>
       <NavBar />
       <AppRouter />
-      <Purchase resultPrice={23123} resultQuantity={1120}/>
+      <Purchase />
     </StyledApp>
   );
 }

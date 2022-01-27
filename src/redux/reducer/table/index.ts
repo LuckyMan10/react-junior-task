@@ -30,8 +30,7 @@ const tableReducer = (state = initialState, action: tableAction) => {
         const categoriesId: string[] = [];
 
         action.payload.forEach((category: receivedCategory, index: number) => {
-          const products: filtredProduct[] = [];
-          const productsId: string[] = [];
+          const products: {[key: string]: filtredProduct} = {};
           categoriesId.push(category.rid);
 
           category.goods.forEach((product: receivedProduct) => {
@@ -39,27 +38,19 @@ const tableReducer = (state = initialState, action: tableAction) => {
               id: product.gid,
               name: product.gname,
               price: Number(product.gprice),
-              quantity: 1,
-              summ: Number(product.gprice),
+              quantity: 0,
+              summ: 0,
               categoryId: category.rid,
             };
             allProducts[product.gid] = currentProduct;
-            productsId.push(currentProduct.id);
-            products.push(currentProduct);
+            products[product.gid] = currentProduct;
           });
 
           const currentCategory = {
             id: category.rid,
             name: category.rname,
-            productsId,
+            products,
           };
-          if (index === 0) {
-            draftState.currentCategory = {
-              name: category.rname,
-              id: category.rid,
-            };
-            draftState.currentProducts = products;
-          }
 
           draftState.categories[category.rid] = currentCategory;
           draftState.categoriesNav.push({
@@ -80,12 +71,12 @@ const tableReducer = (state = initialState, action: tableAction) => {
       return nextState;
     case "SET_QUANTITY": {
       const nextState = produce(state, (draftState) => {
-        const { productId, quantity } = action.payload;
-        draftState.products[productId].quantity = quantity;
-        draftState.products[productId].summ =
+        const { productId, quantity, categoryId } = action.payload;
+        draftState.categories[categoryId].products[productId].quantity =
+          quantity;
+        draftState.categories[categoryId].products[productId].summ =
           state.products[productId].price * quantity;
       });
-      console.log(nextState)
       return nextState;
     }
     default:

@@ -14,6 +14,9 @@ const AppRouter: FC = () => {
       {isDataReady &&
         categoriesId.map((categoryId, index) => {
           const currentCategory = categories[categoryId];
+          const currentProducts = Object.keys(currentCategory.products).map(
+            (id) => currentCategory.products[id]
+          );
           return (
             <Route key={`${categoryId}_${index}`}>
               <Route
@@ -21,8 +24,9 @@ const AppRouter: FC = () => {
                 element={
                   <Table
                     key={currentCategory.name}
+                    categoryId={currentCategory.id}
                     name={currentCategory.name}
-                    productsId={currentCategory.productsId}
+                    products={currentProducts}
                   />
                 }
               />
