@@ -20,8 +20,8 @@ const updateCart = ({ id, quantity, price }: updateCartAction): updateCart => {
 const addBasket = (basketData: any): addBasket => {
   return {
     type: cartActionEnum.ADD_BASKET,
-    payload: basketData
-  }
-}
+    payload: basketData,
+  };
+};
 
 export { updateCart, addBasket };

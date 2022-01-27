@@ -3,8 +3,8 @@ import { getProducts } from "redux/reducer/table/action";
 import { useAppDispatch } from "redux/store/hooks";
 import { NavBar } from "components/navbar";
 import Styled from "styled-components";
-import {AppRouter} from 'router';
-import {Purchase} from 'components/purchase';
+import { AppRouter } from "router";
+import { Purchase } from "components/purchase";
 
 const StyledApp = Styled.div`
     display: flex;

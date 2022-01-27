@@ -13,6 +13,9 @@ const StyledTable = Styled.div`
     }
     .rc-table-cell {
         text-align: center;
+        input {
+            border: none;
+        }
     }
     .rc-table-thead > tr > * {
         font-size: 1.2em;

@@ -5,6 +5,7 @@ import {
   tableAction,
   receivedProduct,
   filtredProduct,
+  tableActionEnum,
 } from "./types";
 
 const initialState: InitialState = {
@@ -21,7 +22,7 @@ const initialState: InitialState = {
 
 const tableReducer = (state = initialState, action: tableAction) => {
   switch (action.type) {
-    case "SET_PRODUCTS": {
+    case tableActionEnum.SET_PRODUCTS: {
       const nextState = produce(state, (draftState) => {
         draftState.isFetched = true;
         draftState.isError = false;
@@ -29,8 +30,8 @@ const tableReducer = (state = initialState, action: tableAction) => {
         const allProducts: { [key: string]: filtredProduct } = {};
         const categoriesId: string[] = [];
 
-        action.payload.forEach((category: receivedCategory, index: number) => {
-          const products: {[key: string]: filtredProduct} = {};
+        action.payload.forEach((category: receivedCategory) => {
+          const products: { [key: string]: filtredProduct } = {};
           categoriesId.push(category.rid);
 
           category.goods.forEach((product: receivedProduct) => {
@@ -63,13 +64,13 @@ const tableReducer = (state = initialState, action: tableAction) => {
       });
       return nextState;
     }
-    case "SET_PRODUCTS_ERROR":
+    case tableActionEnum.SET_ERROR:
       const nextState = produce(state, (draftState) => {
         draftState.isFetched = false;
         draftState.isError = true;
       });
       return nextState;
-    case "SET_QUANTITY": {
+    case tableActionEnum.SET_QUANTITY: {
       const nextState = produce(state, (draftState) => {
         const { productId, quantity, categoryId } = action.payload;
         draftState.categories[categoryId].products[productId].quantity =

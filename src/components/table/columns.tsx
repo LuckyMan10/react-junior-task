@@ -1,3 +1,5 @@
+import {record} from './types';
+
 function onQuantityChange() {}
 
 const columns = [
@@ -24,7 +26,7 @@ const columns = [
     dataIndex: "quantity",
     key: "quantity",
     width: 200,
-    render: (_: any, record: any) => (
+    render: (_: number, record: record) => (
       <input
         type="number"
         min="0"

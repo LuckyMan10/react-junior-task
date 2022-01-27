@@ -110,19 +110,19 @@ export interface filtredCategory {
 }
 
 export enum tableActionEnum {
-  SET_TABLE_PRODUCTS = "SET_PRODUCTS",
-  SET_TABLE_ERROR = "SET_PRODUCTS_ERROR",
+  SET_PRODUCTS = "SET_PRODUCTS",
+  SET_ERROR = "SET_PRODUCTS_ERROR",
   SET_QUANTITY = "SET_QUANTITY",
   GET_PRODUCTS = "GET_PRODUCTS",
 }
 
 export interface setTableProducts {
-  type: tableActionEnum.SET_TABLE_PRODUCTS;
+  type: tableActionEnum.SET_PRODUCTS;
   payload: receivedCategory[];
 }
 
 export interface setTableError {
-  type: tableActionEnum.SET_TABLE_ERROR;
+  type: tableActionEnum.SET_ERROR;
 }
 
 export interface getProducts {

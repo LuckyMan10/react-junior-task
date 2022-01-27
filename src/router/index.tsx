@@ -4,8 +4,9 @@ import { useAppSelector } from "redux/store/hooks";
 import { Table } from "components/table";
 
 const AppRouter: FC = () => {
-  const { isError, isFetched, categories, categoriesId, products } =
-    useAppSelector((state) => state.table);
+  const { isError, isFetched, categories, categoriesId } = useAppSelector(
+    (state) => state.table
+  );
 
   const isDataReady = !isError && isFetched;
 

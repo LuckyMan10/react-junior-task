@@ -1,11 +1,10 @@
-import { FC, MouseEvent } from "react";
+import { FC } from "react";
 import { StyledNav } from "./style";
-import { useAppSelector, useAppDispatch } from "redux/store/hooks";
+import { useAppSelector } from "redux/store/hooks";
 import { Link } from "react-router-dom";
 
 const NavBar: FC = () => {
-  const dispatch = useAppDispatch();
-  const { categoriesNav, currentCategory, isFetched, isError } = useAppSelector(
+  const { categoriesNav, isFetched, isError } = useAppSelector(
     (state) => state.table
   );
 
@@ -16,12 +15,7 @@ const NavBar: FC = () => {
         {isDataReady &&
           categoriesNav.map((category, index) => {
             return (
-              <li
-                key={`${category.id}_${index}`}
-                className={`list__item ${
-                  category.id === currentCategory ? "item-active" : ""
-                }`}
-              >
+              <li key={`${category.id}_${index}`} className={`list__item`}>
                 <Link to={`/${category.id}`}>{category.name}</Link>
               </li>
             );
