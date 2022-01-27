@@ -1,5 +1,15 @@
-import { all, call, put, takeEvery, fork } from "redux-saga/effects";
+import {
+  all,
+  call,
+  put,
+  takeEvery,
+  fork,
+  CallEffect,
+  PutEffect,
+} from "redux-saga/effects";
 import { fetchProducts, fetchBasket } from "redux/http";
+import { receivedCategory } from "redux/reducer/table/types";
+import { basket } from "redux/http/types";
 
 function getProducts() {
   return { type: "GET_PRODUCTS" };
@@ -19,7 +29,9 @@ function* watchAddBasket() {
   yield takeEvery("ADD_BASKET", addBasketAsync);
 }
 
-function* getProductsAsync(): any {
+function* getProductsAsync():
+  | Generator<CallEffect<receivedCategory>>
+  | PutEffect<{ type: string; payload: unknown }> {
   try {
     const response = yield call(fetchProducts);
     yield put({ type: "SET_PRODUCTS", payload: response });
@@ -28,7 +40,13 @@ function* getProductsAsync(): any {
   }
 }
 
-function* addBasketAsync({type, payload}: {type: string, payload: FormData}): Generator<any> {
+function* addBasketAsync({
+  type,
+  payload,
+}: {
+  type: string;
+  payload: FormData;
+}): Generator<CallEffect<basket>> | PutEffect<{ type: string }> {
   try {
     const response = yield call(fetchBasket, payload);
     yield console.log("response from server: ", response);
