@@ -2,6 +2,7 @@ import Styled from "styled-components";
 
 const StyledNav = Styled.nav`
     font-family: sans-serif;
+    margin-bottom: 50px;
     .list {
         list-style: none;
         padding: 0;

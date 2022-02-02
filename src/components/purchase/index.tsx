@@ -9,7 +9,6 @@ const Purchase: FC = () => {
     (state) => state.cart
   );
   const dispatch = useAppDispatch();
-
   const addToCartHandler = () => {
     const formData = createFormData(cartData);
     dispatch(addBasket(formData));

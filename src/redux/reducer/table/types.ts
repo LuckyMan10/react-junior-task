@@ -114,6 +114,7 @@ export enum tableActionEnum {
   SET_ERROR = "SET_PRODUCTS_ERROR",
   SET_QUANTITY = "SET_QUANTITY",
   GET_PRODUCTS = "GET_PRODUCTS",
+  SET_CURRENT_PRODUCTS = "SET_CURRENT_PRODUCTS"
 }
 
 export interface setTableProducts {
@@ -138,6 +139,13 @@ export interface setQuantity {
   };
 }
 
+export interface setCurrentProducts {
+  type: tableActionEnum.SET_CURRENT_PRODUCTS;
+  payload: {
+    categoryId: string;
+  }
+}
+
 export type InitialState = {
   products: {
     [key: string]: filtredProduct;
@@ -150,6 +158,7 @@ export type InitialState = {
     name?: string;
     id?: string;
   };
+  currentCategoryName: string;
   currentProducts: filtredProduct[];
   productsByCategoryId: {
     [key: string]: filtredProduct[];
@@ -166,4 +175,5 @@ export type tableAction =
   | setTableProducts
   | setTableError
   | setQuantity
-  | getProducts;
+  | getProducts
+  | setCurrentProducts;
